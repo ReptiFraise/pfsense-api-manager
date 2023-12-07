@@ -3,6 +3,7 @@ from typing import Optional
 import toml
 import os
 import pfsense_manager.aliases as aliases
+import pfsense_manager.logs as logs
 
 app = typer.Typer()
 
@@ -20,13 +21,19 @@ def callback():
 
 
 @app.command()
-<<<<<<< HEAD
-def show_logs(host, user, password):
+def show_logs(host, user: Optional[str] = None, password: Optional[str] = None):
     """
     Read the vpn logs and create a file to be friendly readable
     """
     typer.echo("Logs loaded in file")
-=======
+    if user is None and password is None and ISTOML == True:
+        user = TOML_DATA['username']
+        password = TOML_DATA['password']
+        logs.get_logs_system(host=host, user=user, password=password)
+    else:
+        logs.get_logs_system(host=host, user=user, password=password)
+
+
 def get_aliases(host,user: Optional[str] = None, password: Optional[str] = None):
     """
     Get aliases names
@@ -50,4 +57,3 @@ def add_address(host, alias, ip, user: Optional[str] = None, password: Optional[
         aliases.add_address(host=host, user=user, password=password, alias=alias, ip=ip)
     else:
         aliases.add_address(host=host, user=user, password=password, alias=alias, ip=ip)
->>>>>>> 1-aliases
