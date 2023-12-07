@@ -16,7 +16,7 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
-dependencies = ["typer"]
+dependencies = ["typer", "toml"]
 
 [project.scripts]
 pfsense-manager = "pfsense_manager.main:app"
