@@ -37,7 +37,7 @@ def show_logs(host: Annotated[str, typer.Argument(help="IP Address of remote pfs
     else:
         pflogs.get_logs_system(host=host, user=user, password=password, logs=logs)
 
-
+@app.command()
 def get_aliases(host,
                 user: Optional[str] = None, 
                 password: Optional[str] = None):
