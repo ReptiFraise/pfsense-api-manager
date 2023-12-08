@@ -1,9 +1,10 @@
 import typer
 from typing import Optional
+from typing_extensions import Annotated
 import toml
 import os
 import pfsense_manager.aliases as aliases
-import pfsense_manager.logs as logs
+import pfsense_manager.logs as pflogs
 
 app = typer.Typer()
 
@@ -21,20 +22,25 @@ def callback():
 
 
 @app.command()
-def show_logs(host, user: Optional[str] = None, password: Optional[str] = None):
+def show_logs(host: Annotated[str, typer.Argument(help="IP Address of remote pfsense")], 
+              logs: Annotated[str, typer.Argument(help="system or firewall")], 
+              user: Optional[str] = None, 
+              password: Optional[str] = None):
     """
     Read the vpn logs and create a file to be friendly readable
     """
-    typer.echo("Logs loaded in file")
+    typer.echo(f"{logs}")
     if user is None and password is None and ISTOML == True:
         user = TOML_DATA['username']
         password = TOML_DATA['password']
-        logs.get_logs_system(host=host, user=user, password=password)
+        pflogs.get_logs_system(host=host, user=user, password=password, logs=logs)
     else:
-        logs.get_logs_system(host=host, user=user, password=password)
+        pflogs.get_logs_system(host=host, user=user, password=password, logs=logs)
 
 
-def get_aliases(host,user: Optional[str] = None, password: Optional[str] = None):
+def get_aliases(host,
+                user: Optional[str] = None, 
+                password: Optional[str] = None):
     """
     Get aliases names
     """
@@ -47,7 +53,11 @@ def get_aliases(host,user: Optional[str] = None, password: Optional[str] = None)
 
 
 @app.command()
-def add_address(host, alias, ip, user: Optional[str] = None, password: Optional[str] = None):
+def add_address(host: Annotated[str, typer.Argument(help="IP Address of remote pfSense")], 
+                alias: Annotated[str, typer.Argument(help="Name of the alias")], 
+                ip: Annotated[str, typer.Argument(help="ip address in format : \r\t one address: x.x.x.x / list of addresses: x.x.x.x,y.y.y.y / range of addresses: x.x.x.x-y.y.y.y")], 
+                user: Optional[str] = None, 
+                password: Optional[str] = None):
     """
     Add an ip address or a list of ip addresses, separate addresses with comma.
     """
