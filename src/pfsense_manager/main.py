@@ -6,6 +6,7 @@ import os
 import pfsense_manager.aliases as aliases
 import pfsense_manager.logs as pflogs
 import pfsense_manager.dhcp as dhcp
+import pfsense_manager.rules as rules
 
 app = typer.Typer()
 
@@ -95,4 +96,14 @@ def read_dhcp(host,
     dhcp.read_dhcp(host=host,
                    user=user,
                    password=password)
+    """Read dhcpd service parameters"""
+
+
+@app.command()
+def read_rules(host,
+               user: Optional[str] = None,
+               password: Optional[str] = None):
+    rules.read_rules(host=host,
+                     user=user,
+                     password=password)
     """Read dhcpd service parameters"""
