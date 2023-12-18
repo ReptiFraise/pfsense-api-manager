@@ -5,6 +5,7 @@ import toml
 import os
 import pfsense_manager.aliases as aliases
 import pfsense_manager.logs as pflogs
+import pfsense_manager.dhcp as dhcp
 
 app = typer.Typer()
 
@@ -22,9 +23,9 @@ def callback():
 
 
 @app.command()
-def show_logs(host: Annotated[str, typer.Argument(help="IP of pfsense")], 
-              logs: Annotated[str, typer.Argument(help="system or firewall")], 
-              user: Optional[str] = None, 
+def show_logs(host: Annotated[str, typer.Argument(help="IP of pfsense")],
+              logs: Annotated[str, typer.Argument(help="system or firewall")],
+              user: Optional[str] = None,
               password: Optional[str] = None):
     """
     Read the vpn logs and create a file to be friendly readable
@@ -33,20 +34,20 @@ def show_logs(host: Annotated[str, typer.Argument(help="IP of pfsense")],
     if user is None and password is None and ISTOML:
         user = TOML_DATA['username']
         password = TOML_DATA['password']
-        pflogs.get_logs_system(host=host, 
-                               user=user, 
-                               password=password, 
+        pflogs.get_logs_system(host=host,
+                               user=user,
+                               password=password,
                                logs=logs)
     else:
-        pflogs.get_logs_system(host=host, 
-                               user=user, 
-                               password=password, 
+        pflogs.get_logs_system(host=host,
+                               user=user,
+                               password=password,
                                logs=logs)
 
 
 @app.command()
 def get_aliases(host,
-                user: Optional[str] = None, 
+                user: Optional[str] = None,
                 password: Optional[str] = None):
     """
     Get aliases names
@@ -60,12 +61,12 @@ def get_aliases(host,
 
 
 @app.command()
-def add_address(host: Annotated[str, typer.Argument(help="IP of pfSense")], 
-                alias: Annotated[str, typer.Argument(help="Name of alias")], 
-                ip: Annotated[str, typer.Argument(help="""ip @ format : 
-                                                  one @: x.x.x.x / 
-                                                  list: x.x.x.x,y.y.y.y / 
-                                                  range: x.x.x.x-y.y.y.y""")], 
+def add_address(host: Annotated[str, typer.Argument(help="IP of pfSense")],
+                alias: Annotated[str, typer.Argument(help="Name of alias")],
+                ip: Annotated[str, typer.Argument(help="""ip @ format :
+                                                  one @: x.x.x.x /
+                                                  list: x.x.x.x,y.y.y.y /
+                                                  range: x.x.x.x-y.y.y.y""")],
                 user: Optional[str] = None, 
                 password: Optional[str] = None):
     """
@@ -74,14 +75,24 @@ def add_address(host: Annotated[str, typer.Argument(help="IP of pfSense")],
     if user is None and password is None and ISTOML:
         user = TOML_DATA['username']
         password = TOML_DATA['password']
-        aliases.add_address(host=host, 
-                            user=user, 
-                            password=password, 
-                            alias=alias, 
+        aliases.add_address(host=host,
+                            user=user,
+                            password=password,
+                            alias=alias,
                             ip=ip)
     else:
-        aliases.add_address(host=host, 
-                            user=user, 
-                            password=password, 
-                            alias=alias, 
+        aliases.add_address(host=host,
+                            user=user,
+                            password=password,
+                            alias=alias,
                             ip=ip)
+
+
+@app.command()
+def read_dhcp(host,
+              user: Optional[str] = None,
+              password: Optional[str] = None):
+    dhcp.read_dhcp(host=host,
+                   user=user,
+                   password=password)
+    """Read dhcpd service parameters"""
