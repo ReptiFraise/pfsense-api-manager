@@ -1,14 +1,15 @@
 import typer
 from typing import Optional
+from typing_extensions import Annotated
 import toml
 import os
 import pfsense_manager.aliases as aliases
-import pfsense_manager.logs as logs
+import pfsense_manager.logs as pflogs
 
 app = typer.Typer()
 
 ISTOML = False
-if os.path.isfile("./config.toml") == True:
+if os.path.isfile("./config.toml"):
     TOML_DATA = toml.load("./config.toml")['user']
     ISTOML = True
 
@@ -21,24 +22,36 @@ def callback():
 
 
 @app.command()
-def show_logs(host, user: Optional[str] = None, password: Optional[str] = None):
+def show_logs(host: Annotated[str, typer.Argument(help="IP of pfsense")], 
+              logs: Annotated[str, typer.Argument(help="system or firewall")], 
+              user: Optional[str] = None, 
+              password: Optional[str] = None):
     """
     Read the vpn logs and create a file to be friendly readable
     """
-    typer.echo("Logs loaded in file")
-    if user is None and password is None and ISTOML == True:
+    typer.echo(f"{logs}")
+    if user is None and password is None and ISTOML:
         user = TOML_DATA['username']
         password = TOML_DATA['password']
-        logs.get_logs_system(host=host, user=user, password=password)
+        pflogs.get_logs_system(host=host, 
+                               user=user, 
+                               password=password, 
+                               logs=logs)
     else:
-        logs.get_logs_system(host=host, user=user, password=password)
+        pflogs.get_logs_system(host=host, 
+                               user=user, 
+                               password=password, 
+                               logs=logs)
 
 
-def get_aliases(host,user: Optional[str] = None, password: Optional[str] = None):
+@app.command()
+def get_aliases(host,
+                user: Optional[str] = None, 
+                password: Optional[str] = None):
     """
     Get aliases names
     """
-    if user is None and password is None and ISTOML == True:
+    if user is None and password is None and ISTOML:
         user = TOML_DATA['username']
         password = TOML_DATA['password']
         aliases.get_aliases(host=host, user=user, password=password)
@@ -47,25 +60,28 @@ def get_aliases(host,user: Optional[str] = None, password: Optional[str] = None)
 
 
 @app.command()
-def get_aliases(host,user: Optional[str] = None, password: Optional[str] = None):
-    """
-    Get aliases names
-    """
-    if user is None and password is None and ISTOML == True:
-        user = TOML_DATA['username']
-        password = TOML_DATA['password']
-        aliases.get_aliases(host=host, user=user, password=password)
-    else:
-        aliases.get_aliases(host=host, user=user, password=password)
-
-@app.command()
-def add_address(host, alias, ip, user: Optional[str] = None, password: Optional[str] = None):
+def add_address(host: Annotated[str, typer.Argument(help="IP of pfSense")], 
+                alias: Annotated[str, typer.Argument(help="Name of alias")], 
+                ip: Annotated[str, typer.Argument(help="""ip @ format : 
+                                                  one @: x.x.x.x / 
+                                                  list: x.x.x.x,y.y.y.y / 
+                                                  range: x.x.x.x-y.y.y.y""")], 
+                user: Optional[str] = None, 
+                password: Optional[str] = None):
     """
     Add an ip address or a list of ip addresses, separate addresses with comma.
     """
-    if user is None and password is None and ISTOML == True:
+    if user is None and password is None and ISTOML:
         user = TOML_DATA['username']
         password = TOML_DATA['password']
-        aliases.add_address(host=host, user=user, password=password, alias=alias, ip=ip)
+        aliases.add_address(host=host, 
+                            user=user, 
+                            password=password, 
+                            alias=alias, 
+                            ip=ip)
     else:
-        aliases.add_address(host=host, user=user, password=password, alias=alias, ip=ip)
+        aliases.add_address(host=host, 
+                            user=user, 
+                            password=password, 
+                            alias=alias, 
+                            ip=ip)
