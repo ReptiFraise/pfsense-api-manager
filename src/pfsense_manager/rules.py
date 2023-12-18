@@ -31,5 +31,3 @@ def read_rules(host,
             print("\n")
         for key in wanrules[number]:
             print(f"\t{key}:{wanrules[number][key]}")
-
-    print("")
