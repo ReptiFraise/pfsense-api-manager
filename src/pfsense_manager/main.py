@@ -74,9 +74,9 @@ def get_aliases(host,
 
 
 @app.command()
-def add_address(host: Annotated[str, typer.Argument(help="IP of pfSense")],
-                alias: Annotated[str, typer.Argument(help="Name of alias")],
-                ip: Annotated[str, typer.Argument(help="""ip @ format :
+def add_address(host: Annotated[str, typer.Option(help="IP of pfSense")],
+                alias: Annotated[str, typer.Option(help="Name of alias")],
+                ip: Annotated[str, typer.Option(help="""ip @ format :
                                                   one @: x.x.x.x /
                                                   list: x.x.x.x,y.y.y.y /
                                                   range: x.x.x.x-y.y.y.y""")],
@@ -102,7 +102,7 @@ def add_address(host: Annotated[str, typer.Argument(help="IP of pfSense")],
 
 
 @app.command()
-def read_dhcp(host,
+def read_dhcp(host: Optional[str] = None,
               user: Optional[str] = None,
               password: Optional[str] = None):
     dhcp.read_dhcp(host=host,
@@ -112,7 +112,7 @@ def read_dhcp(host,
 
 
 @app.command()
-def read_rules(host,
+def read_rules(host: Optional[str] = None,
                user: Optional[str] = None,
                password: Optional[str] = None):
     rules.read_rules(host=host,
@@ -133,6 +133,8 @@ def add_rule(host: Optional[str] = None,
              protocol: Optional[str] = None,
              src: Optional[str] = None,
              srcport: Optional[str] = None,
+             disabled: Optional[bool] = None,
+             type: Optional[str] = "pass",
              user: Optional[str] = None,
              password: Optional[str] = None,
              passwords: Optional[str] = None,
@@ -151,44 +153,135 @@ def add_rule(host: Optional[str] = None,
         for data in hosts_data:
             print(hosts_data[data])
             print(decrypted_data_dict[data])
-            rules.add_rules(host=hosts_data[data],
-                            user=user,
-                            password=decrypted_data_dict[data],
-                            description=description,
-                            direction=direction,
-                            dst=dst,
-                            dstport=dstport,
-                            interface=interface,
-                            log=log,
-                            protocol=protocol,
-                            src=src,
-                            srcport=srcport)
+            rules.add_rule(host=hosts_data[data],
+                           user=user,
+                           password=decrypted_data_dict[data],
+                           description=description,
+                           direction=direction,
+                           dst=dst,
+                           dstport=dstport,
+                           interface=interface,
+                           log=log,
+                           protocol=protocol,
+                           src=src,
+                           type=type,
+                           disabled=disabled,
+                           srcport=srcport)
     else:
         if user is None and password is None and ISTOML:
             user = TOML_DATA['username']
             password = TOML_DATA['password']
-            rules.add_rules(host=host,
-                            user=user,
-                            password=password,
-                            description=description,
-                            direction=direction,
-                            dst=dst,
-                            dstport=dstport,
-                            interface=interface,
-                            log=log,
-                            protocol=protocol,
-                            src=src,
-                            srcport=srcport)
+            rules.add_rule(host=host,
+                           user=user,
+                           password=password,
+                           description=description,
+                           direction=direction,
+                           dst=dst,
+                           dstport=dstport,
+                           interface=interface,
+                           log=log,
+                           protocol=protocol,
+                           src=src,
+                           type=type,
+                           disabled=disabled,
+                           srcport=srcport)
         else:
-            rules.add_rules(host=host,
-                            user=user,
-                            password=password,
-                            description=description,
-                            direction=direction,
-                            dst=dst,
-                            dstport=dstport,
-                            interface=interface,
-                            log=log,
-                            protocol=protocol,
-                            src=src,
-                            srcport=srcport)
+            rules.add_rule(host=host,
+                           user=user,
+                           password=password,
+                           description=description,
+                           direction=direction,
+                           dst=dst,
+                           dstport=dstport,
+                           interface=interface,
+                           log=log,
+                           protocol=protocol,
+                           src=src,
+                           type=type,
+                           disabled=disabled,
+                           srcport=srcport)
+            
+
+@app.command()
+def modify_rule(host: Optional[str] = None,
+                hosts: Optional[str] = None,
+                description: Optional[str] = None,
+                direction: Optional[str] = "any",
+                dst: Optional[str] = None,
+                dstport: Optional[str] = None,
+                interface: Optional[str] = None,
+                log: Optional[bool] = True,
+                protocol: Optional[str] = None,
+                src: Optional[str] = None,
+                srcport: Optional[str] = None,
+                disabled: Optional[bool] = False,
+                type: Optional[str] = "pass",
+                tracker: Optional[str] = None,
+                user: Optional[str] = None,
+                password: Optional[str] = None,
+                passwords: Optional[str] = None,
+                gnupg: Optional[str] = None
+                ):
+    """
+    Add rule
+    """
+    if host is None and hosts is not None:
+        hosts_data = toml.load(hosts)['routers']
+        file_path = passwords
+        gpg_home_path = gnupg
+        decrypted_json_string = decrypt_gpg_file(file_path, gpg_home_path)
+        decrypted_data_dict = parse_json_data(decrypted_json_string)
+        print(f"decrypted_json_string = {decrypted_json_string}")
+        for data in hosts_data:
+            print(hosts_data[data])
+            print(decrypted_data_dict[data])
+            rules.modify_rule(host=hosts_data[data],
+                              user=user,
+                              password=decrypted_data_dict[data],
+                              description=description,
+                              direction=direction,
+                              dst=dst,
+                              dstport=dstport,
+                              interface=interface,
+                              log=log,
+                              protocol=protocol,
+                              src=src,
+                              type=type,
+                              tracker=tracker,
+                              disabled=disabled,
+                              srcport=srcport)
+    else:
+        if user is None and password is None and ISTOML:
+            user = TOML_DATA['username']
+            password = TOML_DATA['password']
+            rules.modify_rule(host=host,
+                              user=user,
+                              password=password,
+                              description=description,
+                              direction=direction,
+                              dst=dst,
+                              dstport=dstport,
+                              interface=interface,
+                              log=log,
+                              protocol=protocol,
+                              src=src,
+                              type=type,
+                              tracker=tracker,
+                              disabled=disabled,
+                              srcport=srcport)
+        else:
+            rules.modify_rule(host=host,
+                              user=user,
+                              password=password,
+                              description=description,
+                              direction=direction,
+                              dst=dst,
+                              dstport=dstport,
+                              interface=interface,
+                              log=log,
+                              protocol=protocol,
+                              src=src,
+                              type=type,
+                              tracker=tracker,
+                              disabled=disabled,
+                              srcport=srcport)
