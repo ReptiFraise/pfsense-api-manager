@@ -3,6 +3,9 @@ from typing import Optional
 from typing_extensions import Annotated
 import toml
 import os
+import gnupg
+from getpass import getpass
+import json
 import pfsense_manager.aliases as aliases
 import pfsense_manager.logs as pflogs
 import pfsense_manager.dhcp as dhcp
@@ -16,11 +19,20 @@ if os.path.isfile("./config.toml"):
     ISTOML = True
 
 
-@app.callback()
-def callback():
-    """
-    pfSense API management tool
-    """
+def decrypt_gpg_file(file_path, gpg_home_path):
+    gpg = gnupg.GPG(gnupghome=gpg_home_path)
+    with open(file_path, 'rb') as f:
+        passphrase = getpass(prompt="gpg key to decrypt .json.gpg file :")
+        decrypted_data = gpg.decrypt_file(f,
+                                          passphrase=passphrase,
+                                          output=None,
+                                          always_trust=True)
+        print(decrypted_data)
+    return decrypted_data.data.decode('utf-8')
+
+
+def parse_json_data(json_string):
+    return json.loads(json_string)
 
 
 @app.command()
@@ -110,7 +122,8 @@ def read_rules(host,
 
 
 @app.command()
-def add_rule(host,
+def add_rule(host: Optional[str] = None,
+             hosts: Optional[str] = None,
              description: Optional[str] = None,
              direction: Optional[str] = None,
              dst: Optional[str] = None,
@@ -122,35 +135,60 @@ def add_rule(host,
              srcport: Optional[str] = None,
              user: Optional[str] = None,
              password: Optional[str] = None,
+             passwords: Optional[str] = None,
+             gnupg: Optional[str] = None
              ):
     """
     Add rule
     """
-    if user is None and password is None and ISTOML:
-        user = TOML_DATA['username']
-        password = TOML_DATA['password']
-        rules.add_rules(host=host,
-                        user=user,
-                        password=password,
-                        description=description,
-                        direction=direction,
-                        dst=dst,
-                        dstport=dstport,
-                        interface=interface,
-                        log=log,
-                        protocol=protocol,
-                        src=src,
-                        srcport=srcport)
+    if host is None and hosts is not None:
+        hosts_data = toml.load(hosts)['routers']
+        file_path = passwords
+        gpg_home_path = gnupg
+        decrypted_json_string = decrypt_gpg_file(file_path, gpg_home_path)
+        decrypted_data_dict = parse_json_data(decrypted_json_string)
+        print(f"decrypted_json_string = {decrypted_json_string}")
+        for data in hosts_data:
+            print(hosts_data[data])
+            print(decrypted_data_dict[data])
+            rules.add_rules(host=hosts_data[data],
+                            user=user,
+                            password=decrypted_data_dict[data],
+                            description=description,
+                            direction=direction,
+                            dst=dst,
+                            dstport=dstport,
+                            interface=interface,
+                            log=log,
+                            protocol=protocol,
+                            src=src,
+                            srcport=srcport)
     else:
-        rules.add_rules(host=host,
-                        user=user,
-                        password=password,
-                        description=description,
-                        direction=direction,
-                        dst=dst,
-                        dstport=dstport,
-                        interface=interface,
-                        log=log,
-                        protocol=protocol,
-                        src=src,
-                        srcport=srcport)
+        if user is None and password is None and ISTOML:
+            user = TOML_DATA['username']
+            password = TOML_DATA['password']
+            rules.add_rules(host=host,
+                            user=user,
+                            password=password,
+                            description=description,
+                            direction=direction,
+                            dst=dst,
+                            dstport=dstport,
+                            interface=interface,
+                            log=log,
+                            protocol=protocol,
+                            src=src,
+                            srcport=srcport)
+        else:
+            rules.add_rules(host=host,
+                            user=user,
+                            password=password,
+                            description=description,
+                            direction=direction,
+                            dst=dst,
+                            dstport=dstport,
+                            interface=interface,
+                            log=log,
+                            protocol=protocol,
+                            src=src,
+                            srcport=srcport)

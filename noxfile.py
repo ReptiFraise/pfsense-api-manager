@@ -1,5 +1,6 @@
 import nox
 
+
 @nox.session()
 def install(session):
     session.install("flit")
