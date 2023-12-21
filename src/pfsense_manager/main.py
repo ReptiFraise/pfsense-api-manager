@@ -107,3 +107,50 @@ def read_rules(host,
                      user=user,
                      password=password)
     """Read dhcpd service parameters"""
+
+
+@app.command()
+def add_rule(host,
+             description: Optional[str] = None,
+             direction: Optional[str] = None,
+             dst: Optional[str] = None,
+             dstport: Optional[str] = None,
+             interface: Optional[str] = None,
+             log: Optional[bool] = None,
+             protocol: Optional[str] = None,
+             src: Optional[str] = None,
+             srcport: Optional[str] = None,
+             user: Optional[str] = None,
+             password: Optional[str] = None,
+             ):
+    """
+    Add rule
+    """
+    if user is None and password is None and ISTOML:
+        user = TOML_DATA['username']
+        password = TOML_DATA['password']
+        rules.add_rules(host=host,
+                        user=user,
+                        password=password,
+                        description=description,
+                        direction=direction,
+                        dst=dst,
+                        dstport=dstport,
+                        interface=interface,
+                        log=log,
+                        protocol=protocol,
+                        src=src,
+                        srcport=srcport)
+    else:
+        rules.add_rules(host=host,
+                        user=user,
+                        password=password,
+                        description=description,
+                        direction=direction,
+                        dst=dst,
+                        dstport=dstport,
+                        interface=interface,
+                        log=log,
+                        protocol=protocol,
+                        src=src,
+                        srcport=srcport)
