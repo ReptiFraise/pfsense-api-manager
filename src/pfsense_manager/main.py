@@ -36,8 +36,8 @@ def parse_json_data(json_string):
 
 
 @app.command()
-def show_logs(host: Annotated[str, typer.Argument(help="IP of pfsense")],
-              logs: Annotated[str, typer.Argument(help="system or firewall")],
+def show_logs(host: Annotated[str, typer.Option(help="IP of pfsense")],
+              logs: Annotated[str, typer.Option(help="system or firewall")],
               user: Optional[str] = None,
               password: Optional[str] = None):
     """
@@ -59,7 +59,7 @@ def show_logs(host: Annotated[str, typer.Argument(help="IP of pfsense")],
 
 
 @app.command()
-def get_aliases(host,
+def get_aliases(host: Annotated[str, typer.Option(help="IP of pfSense")],
                 user: Optional[str] = None,
                 password: Optional[str] = None):
     """
@@ -80,8 +80,8 @@ def add_address(host: Annotated[str, typer.Option(help="IP of pfSense")],
                                                   one @: x.x.x.x /
                                                   list: x.x.x.x,y.y.y.y /
                                                   range: x.x.x.x-y.y.y.y""")],
-                user: Optional[str] = None, 
-                password: Optional[str] = None):
+                user: Annotated[str, typer.Option(help="usernanme")],
+                password: Annotated[str, typer.Option(help="password")]):
     """
     Add an ip address or a list of ip addresses, separate addresses with comma.
     """
@@ -102,7 +102,7 @@ def add_address(host: Annotated[str, typer.Option(help="IP of pfSense")],
 
 
 @app.command()
-def read_dhcp(host: Optional[str] = None,
+def read_dhcp(host: Annotated[str, typer.Option(help="IP of pfSense")],
               user: Optional[str] = None,
               password: Optional[str] = None):
     dhcp.read_dhcp(host=host,
@@ -122,24 +122,23 @@ def read_rules(host: Optional[str] = None,
 
 
 @app.command()
-def add_rule(host: Optional[str] = None,
-             hosts: Optional[str] = None,
-             description: Optional[str] = None,
-             direction: Optional[str] = None,
-             dst: Optional[str] = None,
-             dstport: Optional[str] = None,
-             interface: Optional[str] = None,
-             log: Optional[bool] = None,
-             protocol: Optional[str] = None,
-             src: Optional[str] = None,
-             srcport: Optional[str] = None,
-             disabled: Optional[bool] = None,
-             type: Optional[str] = "pass",
-             user: Optional[str] = None,
-             password: Optional[str] = None,
-             passwords: Optional[str] = None,
-             gnupg: Optional[str] = None
-             ):
+def add_rule(host: Annotated[str, typer.Option(help="IP of pfSense")],
+             hosts: Annotated[str, typer.Option(help="File hosts.toml")],
+             description: Annotated[str, typer.Option(help="Description of the rule")],
+             direction: Annotated[str, typer.Option(help="Default any", default="any")],
+             dst: Annotated[str, typer.Option(help="Destination of the rule [any, host or alias, Network, WAN net, WAN address, LAN net, LAN address]", default="any")],
+             dstport: Annotated[str, typer.Option(help="Destination port of the rule [any, port number]")],
+             interface: Annotated[str, typer.Option(help="Interface to apply the rule on [lan, wan]")],
+             log: Annotated[bool, typer.Option(help="Default true", default=True)],
+             protocol: Annotated[str, typer.Option(help="Protocol over IP [any, tcp, udp, tcp/udp, icmp ...]", default="tcp/udp")],
+             src: Annotated[str, typer.Option(help="Source of traffic [any, host or alias, Network, WAN net, WAN address, LAN net, LAN address]", default="any")],
+             srcport: Annotated[str, typer.Option(help="Source port of the rule [any, port number]", default="any")],
+             disabled: Annotated[bool, typer.Option(help="Default False", default=False)],
+             type: Annotated[str, typer.Option(help="[pass, block, reject]", default="pass")],
+             user: Annotated[str, typer.Option(help="")],
+             password: Annotated[str, typer.Option(help="")],
+             passwords: Annotated[str, typer.Option(help="File of passwords .json.gpg")],
+             gnupg: Annotated[str, typer.Option(help="Directory gnupg to decrypt .gpg file")]):
     """
     Add rule
     """
@@ -203,27 +202,27 @@ def add_rule(host: Optional[str] = None,
             
 
 @app.command()
-def modify_rule(host: Optional[str] = None,
-                hosts: Optional[str] = None,
-                description: Optional[str] = None,
-                direction: Optional[str] = "any",
-                dst: Optional[str] = None,
-                dstport: Optional[str] = None,
-                interface: Optional[str] = None,
-                log: Optional[bool] = True,
-                protocol: Optional[str] = None,
-                src: Optional[str] = None,
-                srcport: Optional[str] = None,
-                disabled: Optional[bool] = False,
-                type: Optional[str] = "pass",
-                tracker: Optional[str] = None,
-                user: Optional[str] = None,
-                password: Optional[str] = None,
-                passwords: Optional[str] = None,
-                gnupg: Optional[str] = None
+def modify_rule(host: Annotated[str, typer.Option(help="IP of pfSense", default=None)],
+                hosts: Annotated[str, typer.Option(help="File hosts.toml", default=None)],
+                description: Annotated[str, typer.Option(help="Description of the rule", default=None)],
+                direction: Annotated[str, typer.Option(help="Default any", default="any", default=None)],
+                dst: Annotated[str, typer.Option(help="Destination of the rule [any, host or alias, Network, WAN net, WAN address, LAN net, LAN address]", default=None)],
+                dstport: Annotated[str, typer.Option(help="Destination port of the rule [any, port number]", default=None)],
+                interface: Annotated[str, typer.Option(help="Interface to apply the rule on [lan, wan]", default=None)],
+                log: Annotated[bool, typer.Option(help="Default true", default=None)],
+                protocol: Annotated[str, typer.Option(help="Protocol over IP [any, tcp, udp, tcp/udp, icmp ...]", default=None)],
+                src: Annotated[str, typer.Option(help="Source of traffic [any, host or alias, Network, WAN net, WAN address, LAN net, LAN address]", default=None)],
+                srcport: Annotated[str, typer.Option(help="Source port of the rule [any, port number]", default=None)],
+                disabled: Annotated[bool, typer.Option(help="Default False", default=None)],
+                type: Annotated[str, typer.Option(help="[pass, block, reject]", default=None)],
+                tracker: Annotated[str, typer.Option(help="tracker id of the rule to modify", default=None)],
+                user: Annotated[str, typer.Option(help="", default=None)],
+                password: Annotated[str, typer.Option(help="", default=None)],
+                passwords: Annotated[str, typer.Option(help="File of passwords .json.gpg", default=None)],
+                gnupg: Annotated[str, typer.Option(help="Directory gnupg to decrypt .gpg file", default=None)]
                 ):
     """
-    Add rule
+    Modify Rule
     """
     if host is None and hosts is not None:
         hosts_data = toml.load(hosts)['routers']
