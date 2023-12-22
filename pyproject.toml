@@ -16,7 +16,7 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
-dependencies = ["typer", "toml", "python-gnupg"]
+dependencies = ["typer", "toml", "python-gnupg", "sphinx", "livereload", "sphinx-rtd-theme"]
 
 [project.scripts]
 pfsense-manager = "pfsense_manager.main:app"
