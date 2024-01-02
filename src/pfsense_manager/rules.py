@@ -8,6 +8,13 @@ import io
 def read_rules(host,
                user,
                password):
+    """
+    Read the rules on router and show them on console
+    :param host: ip address of router
+    :param user: the username of user that have rights to use API
+    :param password: the password of user
+    :return: the rules in list of dicts format
+    """
     url = f"https://{host}/api/v1/firewall/rule"
     r = requests.get(url=url, 
                      verify=False, 
@@ -43,6 +50,14 @@ def get_rule_parameters(host,
                         user,
                         password,
                         tracker):
+    """
+    Get the parameters of a rule and returns it
+    :param host: ip address of router
+    :param user: the username of user that have rights to use API
+    :param password: the password of user
+    :param tracker: unique tracker id of a rule
+    :return: parameters in dict format
+    """
     original_stdout = sys.stdout
     sys.stdout = io.StringIO()
     try:
@@ -60,7 +75,6 @@ def add_rule(host,
              user,
              password,
              description,
-             direction,
              dst,
              dstport,
              interface,
@@ -71,10 +85,27 @@ def add_rule(host,
              type,
              disabled
              ):
+    """
+    Add a rule on an interface of the router
+    :param host: ip address of router
+    :param user: the username of user that have rights to use API
+    :param password: the password of user
+    :param description: string description of the rule
+    :param direction: direction of the rule, any by default
+    :param dst: ip address of destination, can be "any" or network or alias
+    :param dstport: port destination, can be range or alias
+    :param interface: interface the rule will be applied on
+    :param log: set True if you want to log the rule, False instead
+    :param protocol: Set protocol over ip like TCP/UDP
+    :param src: ip source, alias or network
+    :param srcport: source port, any is the most used value
+    :param type: pass, block or reject
+    :param disabled: rule will be disabled if set as True, instead it will be False
+    """
     url = f"https://{host}/api/v1/firewall/rule"
     data = json.dumps({"apply": True,
                        "descr": description,
-                       "direction": direction,
+                       "direction": "any",
                        "disabled": disabled,
                        "dst": dst,
                        "dstport": dstport,
@@ -87,7 +118,7 @@ def add_rule(host,
                        "src": src,
                        "srcport": srcport,
                        "top": True,
-                       "type": "pass"})
+                       "type": type})
     r = requests.post(url=url, 
                       verify=False, 
                       auth=HTTPBasicAuth(username=user, password=password),
@@ -99,7 +130,6 @@ def modify_rule(host,
                 user,
                 password,
                 description,
-                direction,
                 dst,
                 dstport,
                 interface,
@@ -110,6 +140,24 @@ def modify_rule(host,
                 disabled,
                 type,
                 tracker):
+    """
+    Modify a rule on an interface of the router, by default, the not modified parameters will be kept
+    :param host: ip address of router
+    :param user: the username of user that have rights to use API
+    :param password: the password of user
+    :param description: string description of the rule
+    :param direction: direction of the rule, any by default
+    :param dst: ip address of destination, can be "any" or network or alias
+    :param dstport: port destination, can be range or alias
+    :param interface: interface the rule will be applied on
+    :param log: set True if you want to log the rule, False instead
+    :param protocol: Set protocol over ip like TCP/UDP
+    :param src: ip source, alias or network
+    :param srcport: source port, any is the most used value
+    :param type: pass, block or reject
+    :param disabled: rule will be disabled if set as True, instead it will be False
+    :param tracker: Unique tracker id of a rule
+    """
     url = f"https://{host}/api/v1/firewall/rule"
     parameters = get_rule_parameters(host=host,
                                      user=user,
@@ -153,7 +201,7 @@ def modify_rule(host,
             exit()
     data = json.dumps({"apply": True,
                        "descr": description,
-                       "direction": direction,
+                       "direction": "any",
                        "disabled": disabled,
                        "dst": dst,
                        "dstport": dstport,

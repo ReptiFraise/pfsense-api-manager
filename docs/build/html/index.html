@@ -1,25 +1,27 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="fr" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to pfsense-manager’s documentation! &mdash; Documentation pfsense-manager v1</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <title>Welcome to pfsense_manager’s documentation! &mdash; pfsense_manager 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/translations.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=d45e8c67"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Recherche" href="search.html" />
-    <link rel="next" title="pfsense_manager package" href="pfsense_manager.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Module pfsense_manager.main" href="main.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -31,11 +33,11 @@
           
           
           <a href="#" class="icon icon-home">
-            pfsense-manager
+            pfsense_manager
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -43,7 +45,11 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="pfsense_manager.html">pfsense_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">Module <cite>pfsense_manager.main</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="aliases.html">Module <cite>pfsense_manager.aliases</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Module <cite>pfsense_manager.rules</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="logs.html">Module <cite>pfsense_manager.logs</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="dhcp.html">Module <cite>pfsense_manager.dhcp</cite></a></li>
 </ul>
 
         </div>
@@ -52,7 +58,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">pfsense-manager</a>
+          <a href="#">pfsense_manager</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -60,9 +66,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Welcome to pfsense-manager’s documentation!</li>
+      <li class="breadcrumb-item active">Welcome to pfsense_manager’s documentation!</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -71,48 +77,71 @@
            <div itemprop="articleBody">
              
   <section id="welcome-to-pfsense-manager-s-documentation">
-<h1>Welcome to pfsense-manager’s documentation!<a class="headerlink" href="#welcome-to-pfsense-manager-s-documentation" title="Lien permanent vers ce titre"></a></h1>
+<h1>Welcome to pfsense_manager’s documentation!<a class="headerlink" href="#welcome-to-pfsense-manager-s-documentation" title="Link to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="pfsense_manager.html">pfsense_manager package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pfsense_manager.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pfsense_manager.html#module-pfsense_manager.aliases">pfsense_manager.aliases module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pfsense_manager.html#module-pfsense_manager.dhcp">pfsense_manager.dhcp module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pfsense_manager.html#module-pfsense_manager.logs">pfsense_manager.logs module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pfsense_manager.html#module-pfsense_manager.main">pfsense_manager.main module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pfsense_manager.html#module-pfsense_manager.rules">pfsense_manager.rules module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pfsense_manager.html#module-pfsense_manager">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">Module <cite>pfsense_manager.main</cite></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="main.html#pfsense_manager.main.decrypt_gpg_file"><code class="docutils literal notranslate"><span class="pre">decrypt_gpg_file()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#pfsense_manager.main.parse_json_data"><code class="docutils literal notranslate"><span class="pre">parse_json_data()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#pfsense_manager.main.show_logs"><code class="docutils literal notranslate"><span class="pre">show_logs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#pfsense_manager.main.get_aliases"><code class="docutils literal notranslate"><span class="pre">get_aliases()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#pfsense_manager.main.add_address"><code class="docutils literal notranslate"><span class="pre">add_address()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#pfsense_manager.main.read_dhcp"><code class="docutils literal notranslate"><span class="pre">read_dhcp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#pfsense_manager.main.read_rules"><code class="docutils literal notranslate"><span class="pre">read_rules()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#pfsense_manager.main.add_rule"><code class="docutils literal notranslate"><span class="pre">add_rule()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html#pfsense_manager.main.modify_rule"><code class="docutils literal notranslate"><span class="pre">modify_rule()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="aliases.html">Module <cite>pfsense_manager.aliases</cite></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="aliases.html#pfsense_manager.aliases.validate_ip_address"><code class="docutils literal notranslate"><span class="pre">validate_ip_address()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="aliases.html#pfsense_manager.aliases.get_aliases"><code class="docutils literal notranslate"><span class="pre">get_aliases()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="aliases.html#pfsense_manager.aliases.add_address"><code class="docutils literal notranslate"><span class="pre">add_address()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Module <cite>pfsense_manager.rules</cite></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rules.html#pfsense_manager.rules.read_rules"><code class="docutils literal notranslate"><span class="pre">read_rules()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="rules.html#pfsense_manager.rules.get_rule_parameters"><code class="docutils literal notranslate"><span class="pre">get_rule_parameters()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="rules.html#pfsense_manager.rules.add_rule"><code class="docutils literal notranslate"><span class="pre">add_rule()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="rules.html#pfsense_manager.rules.modify_rule"><code class="docutils literal notranslate"><span class="pre">modify_rule()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="logs.html">Module <cite>pfsense_manager.logs</cite></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="logs.html#pfsense_manager.logs.get_logs_system"><code class="docutils literal notranslate"><span class="pre">get_logs_system()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dhcp.html">Module <cite>pfsense_manager.dhcp</cite></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dhcp.html#pfsense_manager.dhcp.read_dhcp"><code class="docutils literal notranslate"><span class="pre">read_dhcp()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </div>
 </section>
 <section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Lien permanent vers ce titre"></a></h1>
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Index du module</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Page de recherche</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
 </section>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
-        <a href="pfsense_manager.html" class="btn btn-neutral float-right" title="pfsense_manager package" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="main.html" class="btn btn-neutral float-right" title="Module pfsense_manager.main" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2023, Alban Calvo.</p>
+    <p>&#169; Copyright 2024, Alban Calvo.</p>
   </div>
 
-  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
-    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
    
 
 </footer>

@@ -7,6 +7,11 @@ import ipaddress
 
 
 def validate_ip_address(ip_string):
+    """"
+    Validate the ip address format
+    :param ip_string: OP address on string format
+    :return: True if ip is correct, else return False
+    """
     try:
         ipaddress.ip_address(ip_string)
         return True
@@ -16,6 +21,12 @@ def validate_ip_address(ip_string):
 
 
 def get_aliases(host, user, password):
+    """
+    Get the aliases of router
+    :param host: ip address of router
+    :param user: the username of user that have rights to use API
+    :param password: the password of user
+    """
     url = f"https://{host}/api/v1/firewall/alias"
     print(f"Authentication with user {user}:{password}")
     r = requests.get(url=url, 
@@ -30,6 +41,14 @@ def get_aliases(host, user, password):
 
 
 def add_address(host, user, password, alias, ip):
+    """
+    Add an address ip, a list or a range in a specified alias of the router
+    :param host: ip address of router
+    :param user: the username of user that have rights to use API
+    :param password: the password of user
+    :param alias: the specified alias you want to add addresses in
+    :param ip: ip address, list x.x.x.x,y.y.y.y , range x.x.x.x-y.y.y.y
+    """
     url = f"https://{host}/api/v1/firewall/alias"
     original_stdout = sys.stdout
     sys.stdout = io.StringIO()
