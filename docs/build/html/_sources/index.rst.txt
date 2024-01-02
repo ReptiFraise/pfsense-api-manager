@@ -10,7 +10,7 @@ Welcome to pfsense-manager's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   main.rst
+   pfsense_manager.rst
 
 Indices and tables
 ==================
