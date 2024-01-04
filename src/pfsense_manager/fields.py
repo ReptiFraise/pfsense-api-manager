@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import paramiko
 from scp import SCPClient
 import os
+import pfsense_manager.upload_config as upload
 
 
 def get_file(host,
@@ -96,3 +97,5 @@ def main(host,
     get_file(host=host, port=port, username=username, password=password, name=name)
     field_content = extract_field(field_name, template)
     replace_field_content(field=field_content, file=f"./configs/{name}.xml", new_file_name=f"new_{name}.xml", field_name=field_name)
+    print("new config file will be uploaded on router")
+    upload.upload_file(host=host, name=name, username=username, password=password, port=port, file=f"./configs/new_{name}.xml")
