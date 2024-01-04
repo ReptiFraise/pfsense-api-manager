@@ -10,6 +10,7 @@ import pfsense_manager.aliases as aliases
 import pfsense_manager.logs as pflogs
 import pfsense_manager.dhcp as dhcp
 import pfsense_manager.rules as rules
+import pfsense_manager.fields as fields
 
 app = typer.Typer()
 
@@ -296,3 +297,53 @@ def modify_rule(host: Optional[str] = None,
                           tracker=tracker,
                           disabled=disabled,
                           srcport=srcport)
+
+
+@app.command()
+def transfert_field(host: Optional[str] = None,
+                    hosts: Optional[str] = None,
+                    name: Optional[str] = None,
+                    port: Optional[str] = None,
+                    username: Optional[str] = None,
+                    password: Optional[str] = None,
+                    passwords: Optional[str] = None,
+                    field: Optional[str] = None,
+                    template: Optional[str] = None,
+                    gnupg: Optional[str] = None,
+                    ):
+    """
+   Transfert a field from a config.xml file template to another one
+   :param host: Router ip address
+   :param name: name of the router that will be used to create file 'name'.xml
+   :param port: ssh port of router
+   :param username: username to connect on ssh, user need rights to copy /conf/config.xml
+   :param password: user's password
+   :param field: field you want to replace on new file
+   :param template: path of the config.xml template file from which you want to get field datas
+    """
+    if host is None and hosts is not None:
+        hosts_data = toml.load(hosts)['routers']
+        file_path = passwords
+        gpg_home_path = gnupg
+        decrypted_json_string = decrypt_gpg_file(file_path, gpg_home_path)
+        decrypted_data_dict = parse_json_data(decrypted_json_string)
+        print(f"decrypted_json_string = {decrypted_json_string}")
+        for data in hosts_data:
+            fields.main(host=hosts_data[data],
+                        username=username,
+                        password=decrypted_data_dict[data],
+                        name=name,
+                        port=port,
+                        field=field,
+                        template=template)
+    else:
+        if username is None and password is None and ISTOML:
+            username = TOML_DATA['username']
+            password = TOML_DATA['password']
+        fields.main(host=host,
+                    username=username,
+                    password=password,
+                    name=name,
+                    port=port,
+                    field=field,
+                    template=template)
