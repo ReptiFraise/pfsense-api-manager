@@ -3,6 +3,7 @@ import paramiko
 from scp import SCPClient
 import os
 import pfsense_manager.upload_config as upload
+import pfsense_manager.reboot as rebooted
 
 
 def get_file(host,
@@ -87,7 +88,8 @@ def main(host,
          username,
          password,
          field,
-         template):
+         template,
+         reboot):
     """ host = "192.168.1.96"
     name = "router_test"
     port = "22"
@@ -98,4 +100,6 @@ def main(host,
     field_content = extract_field(field_name, template)
     replace_field_content(field=field_content, file=f"./configs/{name}.xml", new_file_name=f"new_{name}.xml", field_name=field_name)
     print("new config file will be uploaded on router")
-    upload.upload_file(host=host, name=name, username=username, password=password, port=port, file=f"./configs/new_{name}.xml")
+    upload.upload_file(host=host, name=name, username=username, password=password, port=port)
+    if reboot is True:
+        rebooted.reboot(host=host, port=port, username=username, password=password)

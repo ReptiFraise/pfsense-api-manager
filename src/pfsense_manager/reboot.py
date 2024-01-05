@@ -1,14 +1,17 @@
 import paramiko
-from scp import SCPClient
-import os
 
 
-def upload_file(host,
-                name,
-                username,
-                password,
-                port
-                ):
+def reboot(host,
+           port,
+           username,
+           password):
+    """
+    Reboot the router with the command `reboot`
+    :param host: ip address of router
+    :param port: port for ssh connection
+    :param username: user that have rights to restart router, like admin
+    :param password: password of the user
+    """
     try:
         # Create an SSH client instance
         ssh_client = paramiko.SSHClient()
@@ -19,13 +22,11 @@ def upload_file(host,
                            port=port,
                            username=username,
                            password=password)
-        scp = SCPClient(ssh_client.get_transport())
-        scp.put(f'./configs/new_{name}.xml',
-                '/conf/config.xml',
-                recursive=True)
-        scp.close()
-        # Close the SSH connection
+        stdin_, stdout_, stderr_ = ssh_client.exec_command("reboot")
+        stdout_.channel.recv_exit_status()
+        print(stdout_.channel.recv_exit_status())
         ssh_client.close()
+        print("router has been rebooted")
     except paramiko.AuthenticationException:
         print("Authentication failed. Please check your credentials.")
     except paramiko.SSHException as e:

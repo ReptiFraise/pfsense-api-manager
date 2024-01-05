@@ -351,9 +351,9 @@
 <vlans/>
 <qinqs/>
 <revision>
-<time>1704378218</time>
-<description>(system): Configured default pkg repo after restore</description>
-<username>(system)</username>
+<time>1704383690</time>
+<description>admin@192.168.1.100 (Local Database): Snort pkg: modified global settings.</description>
+<username>admin@192.168.1.100 (Local Database)</username>
 </revision>
 <gateways/>
 <captiveportal/>

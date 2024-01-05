@@ -11,6 +11,7 @@ import pfsense_manager.logs as pflogs
 import pfsense_manager.dhcp as dhcp
 import pfsense_manager.rules as rules
 import pfsense_manager.fields as fields
+import pfsense_manager.reboot as reboot
 
 app = typer.Typer()
 
@@ -34,7 +35,6 @@ def decrypt_gpg_file(file_path, gpg_home_path):
                                           passphrase=passphrase,
                                           output=None,
                                           always_trust=True)
-        print(decrypted_data)
     return decrypted_data.data.decode('utf-8')
 
 
@@ -197,7 +197,6 @@ def add_rule(host: Optional[str] = None,
         gpg_home_path = gnupg
         decrypted_json_string = decrypt_gpg_file(file_path, gpg_home_path)
         decrypted_data_dict = parse_json_data(decrypted_json_string)
-        print(f"decrypted_json_string = {decrypted_json_string}")
         for data in hosts_data:
             print(hosts_data[data])
             print(decrypted_data_dict[data])
@@ -261,7 +260,6 @@ def modify_rule(host: Optional[str] = None,
         gpg_home_path = gnupg
         decrypted_json_string = decrypt_gpg_file(file_path, gpg_home_path)
         decrypted_data_dict = parse_json_data(decrypted_json_string)
-        print(f"decrypted_json_string = {decrypted_json_string}")
         for data in hosts_data:
             print(hosts_data[data])
             print(decrypted_data_dict[data])
@@ -310,6 +308,7 @@ def transfert_field(host: Optional[str] = None,
                     field: Optional[str] = None,
                     template: Optional[str] = None,
                     gnupg: Optional[str] = None,
+                    reboot: Optional[bool] = False,
                     ):
     """
    Transfert a field from a config.xml file template to another one
@@ -327,7 +326,6 @@ def transfert_field(host: Optional[str] = None,
         gpg_home_path = gnupg
         decrypted_json_string = decrypt_gpg_file(file_path, gpg_home_path)
         decrypted_data_dict = parse_json_data(decrypted_json_string)
-        print(f"decrypted_json_string = {decrypted_json_string}")
         for data in hosts_data:
             fields.main(host=hosts_data[data],
                         username=username,
@@ -335,7 +333,8 @@ def transfert_field(host: Optional[str] = None,
                         name=name,
                         port=port,
                         field=field,
-                        template=template)
+                        template=template,
+                        reboot=reboot)
     else:
         if username is None and password is None and ISTOML:
             username = TOML_DATA['username']
@@ -346,4 +345,16 @@ def transfert_field(host: Optional[str] = None,
                     name=name,
                     port=port,
                     field=field,
-                    template=template)
+                    template=template,
+                    reboot=reboot)
+        
+
+@app.command()
+def reboot_router(host: Optional[str] = None,
+                  port: Optional[str] = None,
+                  username: Optional[str] = None,
+                  password: Optional[str] = None):
+    reboot.reboot(host=host,
+                  port=port,
+                  username=username,
+                  password=password)
