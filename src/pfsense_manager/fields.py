@@ -96,10 +96,11 @@ def main(host,
     username = "admin"
     password = "pfsense" """
     field_name = field
+    new_file_name = f"new_{name}.xml"
     get_file(host=host, port=port, username=username, password=password, name=name)
     field_content = extract_field(field_name, template)
-    replace_field_content(field=field_content, file=f"./configs/{name}.xml", new_file_name=f"new_{name}.xml", field_name=field_name)
+    replace_field_content(field=field_content, file=f"./configs/{name}.xml", new_file_name=new_file_name, field_name=field_name)
     print("new config file will be uploaded on router")
-    upload.upload_file(host=host, name=name, username=username, password=password, port=port)
+    upload.upload_file(host=host, name=name, username=username, password=password, port=port, file_name=new_file_name)
     if reboot is True:
         rebooted.reboot(host=host, port=port, username=username, password=password)

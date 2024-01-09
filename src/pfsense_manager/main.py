@@ -12,6 +12,8 @@ import pfsense_manager.dhcp as dhcp
 import pfsense_manager.rules as rules
 import pfsense_manager.fields as fields
 import pfsense_manager.reboot as reboot
+import pfsense_manager.config as config
+import pfsense_manager.certificates as certificates
 
 app = typer.Typer()
 
@@ -347,7 +349,7 @@ def transfert_field(host: Optional[str] = None,
                     field=field,
                     template=template,
                     reboot=reboot)
-        
+
 
 @app.command()
 def reboot_router(host: Optional[str] = None,
@@ -358,3 +360,55 @@ def reboot_router(host: Optional[str] = None,
                   port=port,
                   username=username,
                   password=password)
+    
+
+@app.command()
+def create_config(file1_path: Optional[str] = None,
+                  lan_value: Optional[str] = None,
+                  hostname_value: Optional[str] = None,
+                  domain_value: Optional[str] = None,
+                  upload: Optional[bool] = False,
+                  host: Optional[str] = None,
+                  name: Optional[str] = None,
+                  username: Optional[str] = None,
+                  password: Optional[str] = None,
+                  port: Optional[str] = None,
+                  file_name: Optional[str] = None,
+                  reboot: Optional[bool] = False):
+    config.main(file1_path=file1_path,
+                lan_value=lan_value,
+                hostname_value=hostname_value,
+                domain_value=domain_value,
+                upload=upload,
+                host=host,
+                name=name,
+                username=username,
+                password=password,
+                port=port,
+                file_name=file_name,
+                reboot=reboot)
+    
+
+@app.command()
+def create_certifcate(host: Optional[str] = None,
+                      username: Optional[str] = None,
+                      password: Optional[str] = None,
+                      description: Optional[str] = None,
+                      city: Optional[str] = None,
+                      commonname: Optional[str] = None,
+                      country: Optional[str] = None,
+                      organization: Optional[str] = None,
+                      organizationalunit: Optional[str] = None,
+                      state: Optional[str] = None,
+                      type: Optional[str] = None):
+    certificates.create_certificate(host=host,
+                                    username=username,
+                                    password=password,
+                                    description=description,
+                                    city=city,
+                                    commonname=commonname,
+                                    country=country,
+                                    organization=organization,
+                                    organizationalunit=organizationalunit,
+                                    state=state,
+                                    type=type)

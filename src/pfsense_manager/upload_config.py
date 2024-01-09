@@ -1,13 +1,13 @@
 import paramiko
 from scp import SCPClient
-import os
 
 
 def upload_file(host,
                 name,
                 username,
                 password,
-                port
+                port,
+                file_name
                 ):
     try:
         # Create an SSH client instance
@@ -20,7 +20,7 @@ def upload_file(host,
                            username=username,
                            password=password)
         scp = SCPClient(ssh_client.get_transport())
-        scp.put(f'./configs/new_{name}.xml',
+        scp.put(f'./configs/{file_name}.xml',
                 '/conf/config.xml',
                 recursive=True)
         scp.close()
