@@ -14,6 +14,9 @@ import pfsense_manager.fields as fields
 import pfsense_manager.reboot as reboot
 import pfsense_manager.config as config
 import pfsense_manager.certificates as certificates
+import pfsense_manager.ca as ca
+import pfsense_manager.vpn as vpn
+import pfsense_manager.api as api
 
 app = typer.Typer()
 
@@ -47,6 +50,17 @@ def parse_json_data(json_string):
     :return: A dict in json format
     """
     return json.loads(json_string)
+
+
+@app.command()
+def install_api(host: Optional[str] = None,
+                username: Optional[str] = None,
+                password: Optional[str] = None,
+                port: Optional[str] = None):
+    api.install_api(host=host,
+                    username=username,
+                    password=password,
+                    port=port)
 
 
 @app.command()
@@ -393,6 +407,7 @@ def create_config(file1_path: Optional[str] = None,
 def create_certifcate(host: Optional[str] = None,
                       username: Optional[str] = None,
                       password: Optional[str] = None,
+                      caref: Optional[str] = None,
                       description: Optional[str] = None,
                       city: Optional[str] = None,
                       commonname: Optional[str] = None,
@@ -411,4 +426,44 @@ def create_certifcate(host: Optional[str] = None,
                                     organization=organization,
                                     organizationalunit=organizationalunit,
                                     state=state,
-                                    type=type)
+                                    type=type,
+                                    caref=caref)
+    
+
+@app.command()
+def read_ca(host: Optional[str] = None,
+            username: Optional[str] = None,
+            password: Optional[str] = None):
+    ca.read_ca(host=host,
+               username=username,
+               password=password)
+    
+
+@app.command()
+def read_certificates(host: Optional[str] = None,
+                      username: Optional[str] = None,
+                      password: Optional[str] = None):
+    certificates.read_certs(host=host,
+                            username=username,
+                            password=password)
+
+
+@app.command()
+def create_vpn(caref: Optional[str] = None,
+               certref: Optional[str] = None,
+               tls_path: Optional[str] = None,
+               description: Optional[str] = None,
+               host: Optional[str] = None,
+               username: Optional[str] = None,
+               password: Optional[str] = None,
+               server_addr: Optional[str] = None,
+               server_port: Optional[str] = None):
+    vpn.create_vpn(caref=caref,
+                   certref=certref,
+                   tls_path=tls_path,
+                   description=description,
+                   host=host,
+                   username=username,
+                   password=password,
+                   server_addr=server_addr,
+                   server_port=server_port)

@@ -3,6 +3,20 @@ from requests.auth import HTTPBasicAuth
 import json
 
 
+def read_certs(host,
+               username,
+               password):
+    print("read the certificates")
+    print("read the ca")
+    url = f"https://{host}/api/v1/system/certificate"
+    r = requests.get(url=url,
+                     verify=False,
+                     auth=HTTPBasicAuth(username=username, password=password))
+    datas = r.json()['data']
+    for data in datas:
+        print(f"Certificate: {data['descr']} has certfref: {data['refid']}")
+
+
 def create_certificate(host,
                        username,
                        password,
@@ -13,7 +27,8 @@ def create_certificate(host,
                        organization,
                        organizationalunit,
                        state,
-                       type):
+                       type,
+                       caref):
     print("Create a certificate")
     url = f"https://{host}/api/v1/system/certificate"
     dico = {
@@ -21,7 +36,7 @@ def create_certificate(host,
             "altnames": [
                 {}
             ],
-            "caref": "659d5183d1e84",
+            "caref": caref,
             "descr": description,
             "digest_alg": "sha1",
             "dn_city": city,
@@ -38,29 +53,8 @@ def create_certificate(host,
             "type": type
             }
     data = json.dumps(dico)
-    r = requests.post(url=url, verify=False, auth=HTTPBasicAuth(username=username, password=password), data=data)
+    r = requests.post(url=url,
+                      verify=False,
+                      auth=HTTPBasicAuth(username=username, password=password),
+                      data=data)
     print(r.status_code, r.text)
-
-
-def main(host,
-         username,
-         password,
-         description,
-         city,
-         commonname,
-         country,
-         organization,
-         organizationalunit,
-         state,
-         type):
-    create_certificate(host,
-                       username,
-                       password,
-                       description,
-                       city,
-                       commonname,
-                       country,
-                       organization,
-                       organizationalunit,
-                       state,
-                       type)
