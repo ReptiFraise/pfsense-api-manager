@@ -474,6 +474,6 @@ def add_package(host: Optional[str] = None,
                 password: Optional[str] = None,
                 package: Optional[str] = None):
     packages.add_package(host=host,
-                         username=username,
+                         user=username,
                          password=password,
                          package_name=package)
