@@ -387,7 +387,6 @@ def create_config(file1_path: Optional[str] = None,
                   username: Optional[str] = None,
                   password: Optional[str] = None,
                   port: Optional[str] = None,
-                  file_name: Optional[str] = None,
                   reboot: Optional[bool] = False):
     config.main(file1_path=file1_path,
                 lan_value=lan_value,
@@ -399,7 +398,6 @@ def create_config(file1_path: Optional[str] = None,
                 username=username,
                 password=password,
                 port=port,
-                file_name=file_name,
                 reboot=reboot)
     
 

@@ -54,7 +54,6 @@ def main(file1_path,
          username,
          password,
          port,
-         file_name,
          reboot):
     # Read content from file1
     file1_content = read_xml(file1_path)
