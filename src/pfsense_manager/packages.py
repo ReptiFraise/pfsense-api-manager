@@ -1,18 +1,32 @@
-import requests
-from requests.auth import HTTPBasicAuth
-import json
+import paramiko
+from scp import SCPClient
 
 
 def add_package(host,
-                user,
+                username,
                 password,
+                port,
                 package_name
                 ):
-    url = f"https://{host}/api/v1/firewall/rule"
-    dico = {"name": package_name}
-    data = json.dumps(dico)
-    r = requests.post(url=url, 
-                      verify=False, 
-                      auth=HTTPBasicAuth(username=user, password=password),
-                      data=data)
-    print(r.status_code, r.text)
+    try:
+        # Create an SSH client instance
+        ssh_client = paramiko.SSHClient()
+        # Automatically add the server's host key (this is insecure, use it only for testing purposes)
+        ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        # Connect to the remote server
+        ssh_client.connect(hostname=host,
+                           port=port,
+                           username=username,
+                           password=password)
+        stdin_, stdout_, stderr_ = ssh_client.exec_command(f"pkg install -y {package_name}")
+        stdout_.channel.recv_exit_status()
+        # Close the SSH connection
+        ssh_client.close()
+    except paramiko.AuthenticationException:
+        print("Authentication failed. Please check your credentials.")
+    except paramiko.SSHException as e:
+        print(f"SSH error: {e}")
+    except paramiko.BadHostKeyException as e:
+        print(f"Host key error: {e}")
+    except Exception as e:
+        print(f"Error: {e}")
