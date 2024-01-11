@@ -17,6 +17,7 @@ import pfsense_manager.certificates as certificates
 import pfsense_manager.ca as ca
 import pfsense_manager.vpn as vpn
 import pfsense_manager.api as api
+import pfsense_manager.packages as packages
 
 app = typer.Typer()
 
@@ -154,7 +155,7 @@ def read_dhcp(host: Annotated[str, typer.Option(help="IP of pfSense")],
     dhcp.read_dhcp(host=host,
                    user=user,
                    password=password)
-    
+
 
 @app.command()
 def read_rules(host: Optional[str] = None,
@@ -374,7 +375,7 @@ def reboot_router(host: Optional[str] = None,
                   port=port,
                   username=username,
                   password=password)
-    
+
 
 @app.command()
 def create_config(file1_path: Optional[str] = None,
@@ -399,7 +400,7 @@ def create_config(file1_path: Optional[str] = None,
                 password=password,
                 port=port,
                 reboot=reboot)
-    
+
 
 @app.command()
 def create_certificate(host: Optional[str] = None,
@@ -426,7 +427,7 @@ def create_certificate(host: Optional[str] = None,
                                     state=state,
                                     type=type,
                                     caref=caref)
-    
+
 
 @app.command()
 def read_ca(host: Optional[str] = None,
@@ -435,7 +436,7 @@ def read_ca(host: Optional[str] = None,
     ca.read_ca(host=host,
                username=username,
                password=password)
-    
+
 
 @app.command()
 def read_certificates(host: Optional[str] = None,
@@ -465,3 +466,14 @@ def create_vpn(caref: Optional[str] = None,
                    password=password,
                    server_addr=server_addr,
                    server_port=server_port)
+
+
+@app.command()
+def add_package(host: Optional[str] = None,
+                username: Optional[str] = None,
+                password: Optional[str] = None,
+                package: Optional[str] = None):
+    packages.add_package(host=host,
+                         username=username,
+                         password=password,
+                         package_name=package)
