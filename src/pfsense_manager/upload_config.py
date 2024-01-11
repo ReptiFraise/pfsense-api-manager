@@ -20,7 +20,7 @@ def upload_file(host,
                            username=username,
                            password=password)
         scp = SCPClient(ssh_client.get_transport())
-        scp.put(f'./configs/{file_name}.xml',
+        scp.put(file_name,
                 '/conf/config.xml',
                 recursive=True)
         scp.close()
