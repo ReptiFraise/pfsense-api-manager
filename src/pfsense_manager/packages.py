@@ -9,7 +9,7 @@ def add_package(host,
                 package_name
                 ):
     url = f"https://{host}/api/v1/firewall/rule"
-    dico = {package_name}
+    dico = {"name": package_name}
     data = json.dumps(dico)
     r = requests.post(url=url, 
                       verify=False, 
