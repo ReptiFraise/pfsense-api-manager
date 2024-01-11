@@ -402,7 +402,7 @@ def create_config(file1_path: Optional[str] = None,
     
 
 @app.command()
-def create_certifcate(host: Optional[str] = None,
+def create_certificate(host: Optional[str] = None,
                       username: Optional[str] = None,
                       password: Optional[str] = None,
                       caref: Optional[str] = None,
