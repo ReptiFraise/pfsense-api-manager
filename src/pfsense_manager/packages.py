@@ -1,5 +1,4 @@
 import paramiko
-from scp import SCPClient
 
 
 def add_package(host,
@@ -20,6 +19,7 @@ def add_package(host,
                            password=password)
         stdin_, stdout_, stderr_ = ssh_client.exec_command(f"pkg install -y {package_name}")
         stdout_.channel.recv_exit_status()
+        print(stdout_.channel.recv_exit_status())
         # Close the SSH connection
         ssh_client.close()
     except paramiko.AuthenticationException:
