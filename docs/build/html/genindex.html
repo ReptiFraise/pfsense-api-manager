@@ -1,22 +1,19 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Index &mdash; pfsense_manager 0.0.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
-
-  
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=d45e8c67"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -44,6 +41,15 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="main.html">Module <cite>pfsense_manager.main</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Module <cite>pfsense_manager.api</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="ca.html">Module <cite>pfsense_manager.ca</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="certificates.html">Module <cite>pfsense_manager.certificates</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Module <cite>pfsense_manager.config</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="fields.html">Module <cite>pfsense_manager.fields</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages.html">Module <cite>pfsense_manager.packages</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="reboot.html">Module <cite>pfsense_manager.reboot</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="upload_config.html">Module <cite>pfsense_manager.upload_config</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="vpn.html">Module <cite>pfsense_manager.vpn</cite></a></li>
 <li class="toctree-l1"><a class="reference internal" href="aliases.html">Module <cite>pfsense_manager.aliases</cite></a></li>
 <li class="toctree-l1"><a class="reference internal" href="rules.html">Module <cite>pfsense_manager.rules</cite></a></li>
 <li class="toctree-l1"><a class="reference internal" href="logs.html">Module <cite>pfsense_manager.logs</cite></a></li>
@@ -78,13 +84,19 @@
 
 <div class="genindex-jumpbox">
  <a href="#A"><strong>A</strong></a>
+ | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
  | <a href="#G"><strong>G</strong></a>
+ | <a href="#I"><strong>I</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
+ | <a href="#W"><strong>W</strong></a>
  
 </div>
 <h2 id="A">A</h2>
@@ -94,6 +106,12 @@
 
       <ul>
         <li><a href="main.html#pfsense_manager.main.add_address">(in module pfsense_manager.main)</a>
+</li>
+      </ul></li>
+      <li><a href="main.html#pfsense_manager.main.add_package">add_package() (in module pfsense_manager.main)</a>
+
+      <ul>
+        <li><a href="packages.html#pfsense_manager.packages.add_package">(in module pfsense_manager.packages)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -107,10 +125,40 @@
   </ul></td>
 </tr></table>
 
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="certificates.html#pfsense_manager.certificates.create_certificate">create_certificate() (in module pfsense_manager.certificates)</a>
+
+      <ul>
+        <li><a href="main.html#pfsense_manager.main.create_certificate">(in module pfsense_manager.main)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="main.html#pfsense_manager.main.create_config">create_config() (in module pfsense_manager.main)</a>
+</li>
+      <li><a href="main.html#pfsense_manager.main.create_vpn">create_vpn() (in module pfsense_manager.main)</a>
+
+      <ul>
+        <li><a href="vpn.html#pfsense_manager.vpn.create_vpn">(in module pfsense_manager.vpn)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="main.html#pfsense_manager.main.decrypt_gpg_file">decrypt_gpg_file() (in module pfsense_manager.main)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="fields.html#pfsense_manager.fields.extract_field">extract_field() (in module pfsense_manager.fields)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -126,6 +174,8 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="fields.html#pfsense_manager.fields.get_file">get_file() (in module pfsense_manager.fields)</a>
+</li>
       <li><a href="logs.html#pfsense_manager.logs.get_logs_system">get_logs_system() (in module pfsense_manager.logs)</a>
 </li>
       <li><a href="rules.html#pfsense_manager.rules.get_rule_parameters">get_rule_parameters() (in module pfsense_manager.rules)</a>
@@ -133,9 +183,27 @@
   </ul></td>
 </tr></table>
 
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#pfsense_manager.api.install_api">install_api() (in module pfsense_manager.api)</a>
+
+      <ul>
+        <li><a href="main.html#pfsense_manager.main.install_api">(in module pfsense_manager.main)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="config.html#pfsense_manager.config.main">main() (in module pfsense_manager.config)</a>
+
+      <ul>
+        <li><a href="fields.html#pfsense_manager.fields.main">(in module pfsense_manager.fields)</a>
+</li>
+      </ul></li>
       <li><a href="main.html#pfsense_manager.main.modify_rule">modify_rule() (in module pfsense_manager.main)</a>
 
       <ul>
@@ -148,13 +216,31 @@
       <ul>
         <li><a href="aliases.html#module-pfsense_manager.aliases">pfsense_manager.aliases</a>
 </li>
+        <li><a href="api.html#module-pfsense_manager.api">pfsense_manager.api</a>
+</li>
+        <li><a href="ca.html#module-pfsense_manager.ca">pfsense_manager.ca</a>
+</li>
+        <li><a href="certificates.html#module-pfsense_manager.certificates">pfsense_manager.certificates</a>
+</li>
+        <li><a href="config.html#module-pfsense_manager.config">pfsense_manager.config</a>
+</li>
         <li><a href="dhcp.html#module-pfsense_manager.dhcp">pfsense_manager.dhcp</a>
+</li>
+        <li><a href="fields.html#module-pfsense_manager.fields">pfsense_manager.fields</a>
 </li>
         <li><a href="logs.html#module-pfsense_manager.logs">pfsense_manager.logs</a>
 </li>
         <li><a href="main.html#module-pfsense_manager.main">pfsense_manager.main</a>
 </li>
+        <li><a href="packages.html#module-pfsense_manager.packages">pfsense_manager.packages</a>
+</li>
+        <li><a href="reboot.html#module-pfsense_manager.reboot">pfsense_manager.reboot</a>
+</li>
         <li><a href="rules.html#module-pfsense_manager.rules">pfsense_manager.rules</a>
+</li>
+        <li><a href="upload_config.html#module-pfsense_manager.upload_config">pfsense_manager.upload_config</a>
+</li>
+        <li><a href="vpn.html#module-pfsense_manager.vpn">pfsense_manager.vpn</a>
 </li>
       </ul></li>
   </ul></td>
@@ -173,10 +259,45 @@
 </li>
       </ul></li>
       <li>
+    pfsense_manager.api
+
+      <ul>
+        <li><a href="api.html#module-pfsense_manager.api">module</a>
+</li>
+      </ul></li>
+      <li>
+    pfsense_manager.ca
+
+      <ul>
+        <li><a href="ca.html#module-pfsense_manager.ca">module</a>
+</li>
+      </ul></li>
+      <li>
+    pfsense_manager.certificates
+
+      <ul>
+        <li><a href="certificates.html#module-pfsense_manager.certificates">module</a>
+</li>
+      </ul></li>
+      <li>
+    pfsense_manager.config
+
+      <ul>
+        <li><a href="config.html#module-pfsense_manager.config">module</a>
+</li>
+      </ul></li>
+      <li>
     pfsense_manager.dhcp
 
       <ul>
         <li><a href="dhcp.html#module-pfsense_manager.dhcp">module</a>
+</li>
+      </ul></li>
+      <li>
+    pfsense_manager.fields
+
+      <ul>
+        <li><a href="fields.html#module-pfsense_manager.fields">module</a>
 </li>
       </ul></li>
   </ul></td>
@@ -196,10 +317,38 @@
 </li>
       </ul></li>
       <li>
+    pfsense_manager.packages
+
+      <ul>
+        <li><a href="packages.html#module-pfsense_manager.packages">module</a>
+</li>
+      </ul></li>
+      <li>
+    pfsense_manager.reboot
+
+      <ul>
+        <li><a href="reboot.html#module-pfsense_manager.reboot">module</a>
+</li>
+      </ul></li>
+      <li>
     pfsense_manager.rules
 
       <ul>
         <li><a href="rules.html#module-pfsense_manager.rules">module</a>
+</li>
+      </ul></li>
+      <li>
+    pfsense_manager.upload_config
+
+      <ul>
+        <li><a href="upload_config.html#module-pfsense_manager.upload_config">module</a>
+</li>
+      </ul></li>
+      <li>
+    pfsense_manager.vpn
+
+      <ul>
+        <li><a href="vpn.html#module-pfsense_manager.vpn">module</a>
 </li>
       </ul></li>
   </ul></td>
@@ -208,20 +357,46 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ca.html#pfsense_manager.ca.read_ca">read_ca() (in module pfsense_manager.ca)</a>
+
+      <ul>
+        <li><a href="main.html#pfsense_manager.main.read_ca">(in module pfsense_manager.main)</a>
+</li>
+      </ul></li>
+      <li><a href="main.html#pfsense_manager.main.read_certificates">read_certificates() (in module pfsense_manager.main)</a>
+</li>
+      <li><a href="certificates.html#pfsense_manager.certificates.read_certs">read_certs() (in module pfsense_manager.certificates)</a>
+</li>
       <li><a href="dhcp.html#pfsense_manager.dhcp.read_dhcp">read_dhcp() (in module pfsense_manager.dhcp)</a>
 
       <ul>
         <li><a href="main.html#pfsense_manager.main.read_dhcp">(in module pfsense_manager.main)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="main.html#pfsense_manager.main.read_rules">read_rules() (in module pfsense_manager.main)</a>
 
       <ul>
         <li><a href="rules.html#pfsense_manager.rules.read_rules">(in module pfsense_manager.rules)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="vpn.html#pfsense_manager.vpn.read_tls">read_tls() (in module pfsense_manager.vpn)</a>
+</li>
+      <li><a href="config.html#pfsense_manager.config.read_xml">read_xml() (in module pfsense_manager.config)</a>
+</li>
+      <li><a href="reboot.html#pfsense_manager.reboot.reboot">reboot() (in module pfsense_manager.reboot)</a>
+</li>
+      <li><a href="main.html#pfsense_manager.main.reboot_router">reboot_router() (in module pfsense_manager.main)</a>
+</li>
+      <li><a href="config.html#pfsense_manager.config.replace_domain">replace_domain() (in module pfsense_manager.config)</a>
+</li>
+      <li><a href="fields.html#pfsense_manager.fields.replace_field_content">replace_field_content() (in module pfsense_manager.fields)</a>
+</li>
+      <li><a href="config.html#pfsense_manager.config.replace_hostname">replace_hostname() (in module pfsense_manager.config)</a>
+</li>
+      <li><a href="config.html#pfsense_manager.config.replace_lan_ip">replace_lan_ip() (in module pfsense_manager.config)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -233,10 +408,34 @@
   </ul></td>
 </tr></table>
 
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="main.html#pfsense_manager.main.transfert_field">transfert_field() (in module pfsense_manager.main)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="upload_config.html#pfsense_manager.upload_config.upload_file">upload_file() (in module pfsense_manager.upload_config)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="aliases.html#pfsense_manager.aliases.validate_ip_address">validate_ip_address() (in module pfsense_manager.aliases)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="config.html#pfsense_manager.config.write_xml">write_xml() (in module pfsense_manager.config)</a>
 </li>
   </ul></td>
 </tr></table>

@@ -11,6 +11,15 @@ Welcome to pfsense_manager's documentation!
    :caption: Contents:
 
    main.rst
+   api.rst
+   ca.rst
+   certificates.rst
+   config.rst
+   fields.rst
+   packages.rst
+   reboot.rst
+   upload_config.rst
+   vpn.rst
    aliases.rst
    rules.rst
    logs.rst
