@@ -470,10 +470,12 @@ def create_vpn(caref: Optional[str] = None,
 
 @app.command()
 def add_package(host: Optional[str] = None,
+                port: Optional[str] = None,
                 username: Optional[str] = None,
                 password: Optional[str] = None,
                 package: Optional[str] = None):
     packages.add_package(host=host,
+                         port=port,
                          username=username,
                          password=password,
                          package_name=package)
