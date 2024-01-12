@@ -3,12 +3,19 @@ from scp import SCPClient
 
 
 def upload_file(host,
-                name,
                 username,
                 password,
                 port,
                 file_name
                 ):
+    """
+    Upload config file in /conf/ as config.xml
+    :param host: ip address of the router
+    :param username: username to connect on ssh
+    :param password: password of the user
+    :param port: ssh port
+    :param file_name: path of file to upload
+    """
     try:
         # Create an SSH client instance
         ssh_client = paramiko.SSHClient()

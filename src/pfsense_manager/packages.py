@@ -7,6 +7,14 @@ def add_package(host,
                 port,
                 package_name
                 ):
+    """
+    Install package on router via sh connection
+    :param host: ip address of the router
+    :param username: username to connect on ssh
+    :param password: password of the user
+    :param port: ssh port
+    :param package_name: package name to install
+    """
     try:
         # Create an SSH client instance
         ssh_client = paramiko.SSHClient()

@@ -6,7 +6,7 @@ def install_api(host,
                 username,
                 password):
     """
-    Reboot the router with the command `reboot`
+    Install the API on remote
     :param host: ip address of router
     :param port: port for ssh connection
     :param username: user that have rights to restart router, like admin

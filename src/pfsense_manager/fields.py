@@ -12,6 +12,14 @@ def get_file(host,
              password,
              port,
              ):
+    """
+    Get the file config.xml and download it in ./config/
+    :param host: ip address of router
+    :param name: name of the router, should be the hostname
+    :param username: username to connect on ssh
+    :param password: password of the user
+    :param port: ssh port
+    """
     try:
         # Create an SSH client instance
         ssh_client = paramiko.SSHClient()
@@ -52,7 +60,9 @@ def replace_field_content(file,
     """
     Replace the file's field with the field in parameter and write it in a new file
     :param file: file path to replace the field in
+    :param field_name: field_name to search for in the xml file
     :param field: field as a BeautifulSoup tag object that will replace field in file
+    :param new_file_name: new file name to create
     """
     with open(file, 'r') as file:
         content = file.readlines()
@@ -90,6 +100,17 @@ def main(host,
          field,
          template,
          reboot):
+    """
+    Call functions to replace fields in a config.xml file
+    :param host: ip address of the router
+    :param name: name of file, should be equal to th hostname
+    :param port: ssh port to connect on router
+    :param username: username to connect on ssh
+    :param password: password of the user
+    :param field: field name to replace
+    :param template: file path of template to get fields in
+    :param reboot: boolean, reboot the router if True
+    """
     field_name = field
     new_file_name = f"new_{name}.xml"
     get_file(host=host, port=port, username=username, password=password, name=name)

@@ -4,17 +4,31 @@ import pfsense_manager.reboot as rebooted
 
 
 def read_xml(file_path):
+    """
+    Read the content of xml file and returns it
+    :param file_path: file path of the xml file
+    """
     with open(file_path, 'r') as file:
         content = file.read()
     return content
 
 
 def write_xml(file_path, content):
+    """
+    Write new content in the same xml file to replace values
+    :param file_path: file path of the xml file
+    :param content: content to write in the xml file
+    """
     with open(file_path, 'w') as file:
         file.write(content)
 
 
 def replace_lan_ip(xml_content, new_value):
+    """
+    Replace the ip address of the lan interface in the xml file
+    :param xml_content: field of lan ip address
+    :param new_value: new value for ip address
+    """
     # Parse XML using BeautifulSoup
     soup = BeautifulSoup(xml_content, 'xml')
     # Find the field and replace its content
@@ -25,6 +39,11 @@ def replace_lan_ip(xml_content, new_value):
 
 
 def replace_domain(xml_content, new_value):
+    """
+    Replace the domain name in the xml file
+    :param xml_content: field of domain name
+    :param new_value: new value for domain name
+    """
     # Parse XML using BeautifulSoup
     soup = BeautifulSoup(xml_content, 'xml')
     # Find the field and replace its content
@@ -35,6 +54,11 @@ def replace_domain(xml_content, new_value):
 
 
 def replace_hostname(xml_content, new_value):
+    """
+    Replace the hostname in the xml file
+    :param xml_content: field of hostname
+    :param new_value: new value for hostname
+    """
     # Parse XML using BeautifulSoup
     soup = BeautifulSoup(xml_content, 'xml')
     # Find the field and replace its content
@@ -55,6 +79,20 @@ def main(file1_path,
          password,
          port,
          reboot):
+    """
+    Call functions to replace the fields values in the config.xml file
+    :param file1_path: config.xml file path
+    :param lan_value: new value for lan ip address
+    :param hostname_value: new value for hostname
+    :param domain_value: new value for domain name
+    :param upload: boolean, upload file on router if True
+    :param host: ip address of the router to upload the file on
+    :param name: name of the router, should be equal to hostname
+    :param username: username of the router to upload file on
+    :param password: password of the user
+    :param port: ssh port of the router
+    :param reboot: boolean, reboot the router if True
+    """
     # Read content from file1
     file1_content = read_xml(file1_path)
     # Replace the content of the three fields

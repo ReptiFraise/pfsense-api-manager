@@ -58,6 +58,13 @@ def install_api(host: Optional[str] = None,
                 username: Optional[str] = None,
                 password: Optional[str] = None,
                 port: Optional[str] = None):
+    """
+    Install the API on router
+    :param host: ip address of router
+    :param username: username to connect on ssh
+    :param password: password of the user
+    :param port: ssh port
+    """
     api.install_api(host=host,
                     username=username,
                     password=password,
@@ -270,6 +277,23 @@ def modify_rule(host: Optional[str] = None,
                 ):
     """
     Modify a rule by tracker id
+    :param host: The IP address of the pfsense
+    :param hosts: The hosts.toml file that contain hostnames and ip addresses
+    :param description: description of the rule
+    :param dst: The destination of the rule [any, ip address, network, alias]
+    :param dstport: The port destination [any, port number]
+    :param interface: The interface to apply the rule on
+    :param log: Bool to log or not the traffic rules
+    :param protocol: IP protocol [any, tcp, udp, tcp/udp, icmp]
+    :param src: Source of the traffic [any, ip address, network, alias]
+    :param srcport: Port source [any, port number]
+    :param disabled: Bool to disable or not the rule
+    :param type: Type of the rul [pass, block, reject]
+    :param tracker: tracker id of the rule to modify
+    :param user: The username to connect with
+    :param password: The password of the user
+    :param passwords: The password of the user
+    :param gnupg: Path of folder gnupg
     """
     if host is None and hosts is not None:
         hosts_data = toml.load(hosts)['routers']
@@ -329,13 +353,17 @@ def transfert_field(host: Optional[str] = None,
                     ):
     """
    Transfert a field from a config.xml file template to another one
-   :param host: Router ip address
+   :param host: The IP address of the pfsense
+   :param hosts: The hosts.toml file that contain hostnames and ip addresses
    :param name: name of the router that will be used to create file 'name'.xml
    :param port: ssh port of router
    :param username: username to connect on ssh, user need rights to copy /conf/config.xml
    :param password: user's password
+   :param passwords: The password of the user
    :param field: field you want to replace on new file
    :param template: path of the config.xml template file from which you want to get field datas
+   :param gnupg: Path of folder gnupg
+   :param reboot: boolean, reboot the router if True
     """
     if host is None and hosts is not None:
         hosts_data = toml.load(hosts)['routers']
@@ -371,6 +399,13 @@ def reboot_router(host: Optional[str] = None,
                   port: Optional[str] = None,
                   username: Optional[str] = None,
                   password: Optional[str] = None):
+    """
+    Reboot the router with ssh command `reboot`
+    :param host: ip address of router
+    :param port: ssh port
+    :param username: username to connect on ssh
+    :param password: password of the user
+    """
     reboot.reboot(host=host,
                   port=port,
                   username=username,
@@ -389,6 +424,20 @@ def create_config(file1_path: Optional[str] = None,
                   password: Optional[str] = None,
                   port: Optional[str] = None,
                   reboot: Optional[bool] = False):
+    """
+    Create a new config with a template file
+    :param file1_path: path of the config.xml template file
+    :param lan_value: ip address of the lan interface
+    :param hostname_value: hostname for the new router config
+    :param domain_value: domain name for the new router config
+    :param upload: boolean, upload the file on router if True
+    :param host: ip address of the router to upload conf file on
+    :param name: name of the router, should be equal to hostname
+    :param username: username to connect on ssh
+    :param password: password of the user
+    :param port: ssh port
+    :param reboot: boolean, reboot the router if True
+    """
     config.main(file1_path=file1_path,
                 lan_value=lan_value,
                 hostname_value=hostname_value,
@@ -404,17 +453,32 @@ def create_config(file1_path: Optional[str] = None,
 
 @app.command()
 def create_certificate(host: Optional[str] = None,
-                      username: Optional[str] = None,
-                      password: Optional[str] = None,
-                      caref: Optional[str] = None,
-                      description: Optional[str] = None,
-                      city: Optional[str] = None,
-                      commonname: Optional[str] = None,
-                      country: Optional[str] = None,
-                      organization: Optional[str] = None,
-                      organizationalunit: Optional[str] = None,
-                      state: Optional[str] = None,
-                      type: Optional[str] = None):
+                       username: Optional[str] = None,
+                       password: Optional[str] = None,
+                       caref: Optional[str] = None,
+                       description: Optional[str] = None,
+                       city: Optional[str] = None,
+                       commonname: Optional[str] = None,
+                       country: Optional[str] = None,
+                       organization: Optional[str] = None,
+                       organizationalunit: Optional[str] = None,
+                       state: Optional[str] = None,
+                       type: Optional[str] = None):
+    """
+    Create a new certificate
+    :param host: The IP address of the pfsense
+    :param username: The username to connect with
+    :param password: The password of the user
+    :param description: description of certificate
+    :param city: city to refer in the certificate
+    :param commonname: commonname to refer in the certificate
+    :param country: country to refer in the certificate
+    :param organization: organization to refer in the certificate
+    :param oragnizationalunit: organizationalunit to refer in the certificate
+    :param state: state to refer in the certificate
+    :param type: type of certifcate (server or user)
+    :param caref: CA reference id to use to sign the certificate
+    """
     certificates.create_certificate(host=host,
                                     username=username,
                                     password=password,
@@ -433,6 +497,12 @@ def create_certificate(host: Optional[str] = None,
 def read_ca(host: Optional[str] = None,
             username: Optional[str] = None,
             password: Optional[str] = None):
+    """
+    Read the CA on router and print them on console
+    :param host: IP address of router
+    :param username: username to use the api
+    :param password: password of the user
+    """
     ca.read_ca(host=host,
                username=username,
                password=password)
@@ -442,6 +512,12 @@ def read_ca(host: Optional[str] = None,
 def read_certificates(host: Optional[str] = None,
                       username: Optional[str] = None,
                       password: Optional[str] = None):
+    """
+    Read the certificates of router and print them on console
+    :param host: IP address of router
+    :param username: username to use the api
+    :param password: password of the user
+    """
     certificates.read_certs(host=host,
                             username=username,
                             password=password)
@@ -457,6 +533,18 @@ def create_vpn(caref: Optional[str] = None,
                password: Optional[str] = None,
                server_addr: Optional[str] = None,
                server_port: Optional[str] = None):
+    """
+    Create a new vpn client
+    :param host: ip address of the router
+    :param username: username to connect on api
+    :param password: password of the user
+    :param caref: CA ref id to sign vpn client
+    :param certref: Certificate ref id to use with client
+    :param tls_path: TLS key file path
+    :param server_addr: vpn server ip addr
+    :param server_port: vpn server port
+    :param desciption: description of the vpn client
+    """
     vpn.create_vpn(caref=caref,
                    certref=certref,
                    tls_path=tls_path,
@@ -474,6 +562,14 @@ def add_package(host: Optional[str] = None,
                 username: Optional[str] = None,
                 password: Optional[str] = None,
                 package: Optional[str] = None):
+    """
+    Install package on router via sh connection
+    :param host: ip address of the router
+    :param username: username to connect on ssh
+    :param password: password of the user
+    :param port: ssh port
+    :param package_name: package name to install
+    """
     packages.add_package(host=host,
                          port=port,
                          username=username,

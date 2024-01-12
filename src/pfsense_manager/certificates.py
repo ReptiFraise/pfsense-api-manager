@@ -6,6 +6,12 @@ import json
 def read_certs(host,
                username,
                password):
+    """
+    Read the certificates of router and print them on console
+    :param host: IP address of router
+    :param username: username to use the api
+    :param password: password of the user
+    """
     print("read the certificates")
     print("read the ca")
     url = f"https://{host}/api/v1/system/certificate"
@@ -29,6 +35,21 @@ def create_certificate(host,
                        state,
                        type,
                        caref):
+    """
+    Create a new certifcate on the router
+    :param host: IP address of router
+    :param username: username to use the api
+    :param password: password of the user
+    :param description: description of certificate
+    :param city: city to refer in the certificate
+    :param commonname: commonname to refer in the certificate
+    :param country: country to refer in the certificate
+    :param organization: organization to refer in the certificate
+    :param oragnizationalunit: organizationalunit to refer in the certificate
+    :param state: state to refer in the certificate
+    :param type: type of certifcate (server or user)
+    :param caref: CA reference id to use to sign the certificate
+    """
     print("Create a certificate")
     url = f"https://{host}/api/v1/system/certificate"
     dico = {

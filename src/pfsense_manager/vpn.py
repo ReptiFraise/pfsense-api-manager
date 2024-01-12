@@ -4,6 +4,10 @@ import json
 
 
 def read_tls(file_path):
+    """
+    Read tls key file and returns content
+    :param file_path: TLS key file path
+    """
     ch = ""
     f = open(file_path, "r")
     lines = f.readlines()
@@ -22,6 +26,16 @@ def create_vpn(host,
                server_port,
                description):
     """
+    Create a new vpn client
+    :param host: ip address of the router
+    :param username: username to connect on api
+    :param password: password of the user
+    :param caref: CA ref id to sign vpn client
+    :param certref: Certificate ref id to use with client
+    :param tls_path: TLS key file path
+    :param server_addr: vpn server ip addr
+    :param server_port: vpn server port
+    :param desciption: description of the vpn client
     """
     tls = read_tls(tls_path)
     url = f"https://{host}/api/v1/services/openvpn/client"
