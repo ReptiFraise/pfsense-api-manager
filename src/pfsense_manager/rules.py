@@ -83,7 +83,9 @@ def add_rule(host,
              src,
              srcport,
              type,
-             disabled
+             disabled,
+             top,
+             ipprotocol
              ):
     """
     Add a rule on an interface of the router
@@ -112,12 +114,12 @@ def add_rule(host,
                        "interface": [
                            interface
                        ],
-                       "ipprotocol": "inet",
+                       "ipprotocol": ipprotocol,
                        "log": log,
                        "protocol": protocol,
                        "src": src,
                        "srcport": srcport,
-                       "top": True,
+                       "top": top,
                        "type": type})
     r = requests.post(url=url, 
                       verify=False, 

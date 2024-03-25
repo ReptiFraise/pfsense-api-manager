@@ -68,6 +68,9 @@ def add_address(host, user, password, alias, ip):
         for data in datas:
             if data['name'] == alias:
                 liste = data['address'].split(" ")
+                if liste == ['']:
+                    liste = []
+        print(f"LISTE ===> {liste}")
         if ip.count(",") >= 1:
             for address in ip.split(","):
                 if validate_ip_address(address):
@@ -107,21 +110,23 @@ def add_address(host, user, password, alias, ip):
                 if ip not in liste:
                     liste.append(ip)
                 else:
-                    print(f"Address {address} is already in alias")
+                    print(f"Address {ip} is already in alias")
+                    exit()
             else:
                 exit()
         
         addresses = json.dumps({"address": liste, 
                                 "apply": True, 
-                                "descr": "Allowed hosts on LAN", 
+                                "descr": "", 
                                 "id": alias, 
                                 "name": alias, 
                                 "type": "host"})
+        print(f"ADDRESS = {addresses}")
         r = requests.put(url=url, 
                          verify=False, 
                          auth=HTTPBasicAuth(username=user, password=password), 
                          data=addresses)
-        print(r.status_code)
+        print(r.status_code, r.headers, r.request, r.text)
         if r.status_code == 200:
             print("IP addresses have been added")
         else:

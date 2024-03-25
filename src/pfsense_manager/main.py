@@ -195,6 +195,7 @@ def add_rule(host: Optional[str] = None,
              src: Optional[str] = "any",
              srcport: Optional[str] = "any",
              disabled: Optional[bool] = False,
+             top: Optional[bool] = False,
              type: Optional[str] = "pass"):
     """
     Add rule on the pfSense
@@ -236,6 +237,7 @@ def add_rule(host: Optional[str] = None,
                            src=src,
                            type=type,
                            disabled=disabled,
+                           top=top,
                            srcport=srcport)
     else:
         if user is None and password is None and ISTOML:
@@ -253,6 +255,7 @@ def add_rule(host: Optional[str] = None,
                        src=src,
                        type=type,
                        disabled=disabled,
+                       top=top,
                        srcport=srcport)
 
 
